@@ -102,6 +102,7 @@ export default {
         })
         .catch(err => {
           this.error = err.response.data;
+          this.loading = false;
         });
     }
   },
