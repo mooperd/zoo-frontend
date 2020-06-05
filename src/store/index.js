@@ -6,14 +6,31 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     genusList: [],
-    speciesList: []
+    speciesList: [],
+    specimensList: []
   },
   mutations: {
-    setGenusList(state, list) {
+    setGenusList(state, { list, item }) {
+      if (item) {
+        state.genusList = [...state.genusList, item];
+        return;
+      }
       state.genusList = list;
     },
-    setSpeciesList(state, list) {
+    setSpeciesList(state, { list, item }) {
+      if (item) {
+        state.speciesList = [...state.speciesList, item];
+        return;
+      }
       state.speciesList = list;
+    },
+    setSpecimensList(state, { list, item }) {
+      if (item) {
+        state.specimensList = [...state.specimensList, item];
+        return;
+      }
+
+      state.specimensList = list;
     }
   },
   actions: {},

@@ -1,7 +1,11 @@
 <template>
   <v-container v-if="genusList.length">
     <AddGenus />
-    <Genus v-for="genus in genusList" :key="genus.id" :genus="genus" />
+    <Genus
+      v-for="genus in genusList"
+      :key="genus.scientific_name"
+      :genus="genus"
+    />
   </v-container>
 </template>
 
@@ -16,13 +20,14 @@ export default {
   mounted() {
     this.getGenus();
     this.getSpecies();
+    this.getSpecimens();
   },
   methods: {
     getGenus() {
       this.$axios
         .get("/genus/all")
         .then(({ data }) => {
-          this.$store.commit("setGenusList", data);
+          this.$store.commit("setGenusList", { list: data });
         })
         .catch(err => {
           console.log("err", err);
@@ -32,7 +37,17 @@ export default {
       this.$axios
         .get(`/species/all`)
         .then(({ data }) => {
-          this.$store.commit("setSpeciesList", data);
+          this.$store.commit("setSpeciesList", { list: data });
+        })
+        .catch(err => {
+          console.log("err", err);
+        });
+    },
+    getSpecimens() {
+      this.$axios
+        .get(`/specimen/all`)
+        .then(({ data }) => {
+          this.$store.commit("setSpecimensList", { list: data });
         })
         .catch(err => {
           console.log("err", err);

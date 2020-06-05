@@ -5,16 +5,25 @@
         <h2>{{ error }}</h2>
       </div>
       <v-card-title>
-        <span class="headline">Add New Genus</span>
+        <span class="headline"
+          >Add New Species to Genus "{{ genus.scientific_name }}"</span
+        >
       </v-card-title>
       <v-card-text>
         <v-container>
-          <form @submit.prevent="addGenus()">
+          <form @submit.prevent="addSpecies()">
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  v-model="name"
+                  v-model="scientific_name"
                   label="Scientific Name*"
+                  required
+                />
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="common_name"
+                  label="Common Name*"
                   required
                 />
               </v-col>
@@ -26,7 +35,7 @@
       <v-card-actions v-else>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="open = false">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="addGenus()">Save</v-btn>
+        <v-btn color="blue darken-1" text @click="addSpecies()">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -38,6 +47,10 @@ export default {
     formOpen: {
       type: Boolean,
       default: false
+    },
+    genus: {
+      type: Object,
+      default: () => {}
     }
   },
   computed: {
@@ -51,20 +64,29 @@ export default {
     }
   },
   methods: {
-    addGenus() {
-      this.error = null;
+    addSpecies() {
       this.loading = true;
+      this.error = null;
+
       this.$axios
-        .post("/genus", {
-          scientific_name: this.name
+        .post("/species", {
+          scientific_name: this.scientific_name,
+          common_name: this.common_name,
+          genus: { id: this.genus.id }
         })
         .then(({ data }) => {
-          console.log("data", data);
           this.loading = false;
-          this.$store.commit("setGenusList", {
-            item: { scientific_name: this.name }
+
+          console.log("data", data);
+          this.$store.commit("setSpeciesList", {
+            item: {
+              scientific_name: this.scientific_name,
+              common_name: this.common_name,
+              genus_id: this.genus.id
+            }
           });
-          this.name = "";
+          this.scientific_name = "";
+          this.common_name = "";
         })
         .catch(err => {
           this.loading = false;
@@ -74,9 +96,10 @@ export default {
   },
   data() {
     return {
-      name: "",
-      loading: false,
-      error: null
+      scientific_name: "",
+      common_name: "",
+      error: null,
+      loading: false
     };
   }
 };

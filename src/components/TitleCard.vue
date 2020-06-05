@@ -12,7 +12,7 @@
         </span>
         <v-btn
           class="ml-4"
-          @click="action()"
+          @click="$emit('action', data)"
           v-if="!noButton"
           dark
           color="green"
@@ -35,13 +35,13 @@ export default {
       type: String,
       default: ""
     },
-    action: {
-      type: Function,
-      default: () => {}
-    },
     noButton: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => {}
     }
   }
 };
