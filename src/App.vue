@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-    <Zoo />
-  </div>
+  <v-app id="app">
+    <v-content>
+      <Zoo />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
