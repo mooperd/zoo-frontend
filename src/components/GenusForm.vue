@@ -62,7 +62,7 @@ export default {
         .then(({ data }) => {
           this.loading = false;
           this.$store.commit("setGenusList", {
-            item: { scientific_name: this.name }
+            item: { id: data, scientific_name: this.name }
           });
           // we call the setmessage before we clear the value so the VueX store has the newly added Genus name
           this.$store.commit(

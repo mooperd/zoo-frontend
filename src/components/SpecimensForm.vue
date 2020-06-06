@@ -92,6 +92,7 @@ export default {
           this.loading = false;
           this.$store.commit("setSpecimensList", {
             item: {
+              id: data,
               name: this.name,
               birth_date_time: this.birth_date,
               species_id: this.species.id

@@ -79,6 +79,7 @@ export default {
           this.loading = false;
           this.$store.commit("setSpeciesList", {
             item: {
+              id: data,
               scientific_name: this.scientific_name,
               common_name: this.common_name,
               genus_id: this.genus.id
