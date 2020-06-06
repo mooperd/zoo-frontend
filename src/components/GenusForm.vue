@@ -58,13 +58,19 @@ export default {
         .post("/genus", {
           scientific_name: this.name
         })
+        // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
-          console.log("data", data);
           this.loading = false;
           this.$store.commit("setGenusList", {
             item: { scientific_name: this.name }
           });
+          // we call the setmessage before we clear the value so the VueX store has the newly added Genus name
+          this.$store.commit(
+            "setMessage",
+            `${this.name} has been added as a Genus`
+          );
           this.name = "";
+          this.$emit("toggleForm", false);
         })
         .catch(err => {
           this.loading = false;

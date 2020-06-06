@@ -74,10 +74,9 @@ export default {
           common_name: this.common_name,
           genus: { id: this.genus.id }
         })
+        // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
           this.loading = false;
-
-          console.log("data", data);
           this.$store.commit("setSpeciesList", {
             item: {
               scientific_name: this.scientific_name,
@@ -85,8 +84,13 @@ export default {
               genus_id: this.genus.id
             }
           });
+          this.$store.commit(
+            "setMessage",
+            `${this.scientific_name} has been added as a Species of ${this.genus.scientific_name}`
+          );
           this.scientific_name = "";
           this.common_name = "";
+          this.$emit("toggleForm", false);
         })
         .catch(err => {
           this.loading = false;

@@ -20,7 +20,7 @@
               </v-col>
               <v-col cols="12">
                 <v-menu
-                  v-model="menu2"
+                  v-model="menu"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   transition="scale-transition"
@@ -37,7 +37,7 @@
                   </template>
                   <v-date-picker
                     v-model="birth_date"
-                    @input="menu2 = false"
+                    @input="menu = false"
                   ></v-date-picker>
                 </v-menu>
               </v-col>
@@ -87,9 +87,9 @@ export default {
           birth_date_time: new Date(this.birth_date).getTime(),
           species: { id: this.species.id }
         })
+        // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
           this.loading = false;
-          console.log("data", data);
           this.$store.commit("setSpecimensList", {
             item: {
               name: this.name,
@@ -97,8 +97,13 @@ export default {
               species_id: this.species.id
             }
           });
+          this.$store.commit(
+            "setMessage",
+            `${this.name} has been added as a Specimen of ${this.species.scientific_name}`
+          );
           this.name = "";
           this.birth_date = "";
+          this.$emit("toggleForm", false);
         })
         .catch(err => {
           this.error = err.response.data;
@@ -110,9 +115,10 @@ export default {
     return {
       name: "",
       birth_date: "",
-      menu2: false,
+      menu: false,
       error: null,
-      loading: false
+      loading: false,
+      message: "test"
     };
   }
 };

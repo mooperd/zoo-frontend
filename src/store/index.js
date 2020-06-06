@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     genusList: [],
     speciesList: [],
-    specimensList: []
+    specimensList: [],
+    message: ""
   },
   mutations: {
     setGenusList(state, { list, item }) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
       }
 
       state.specimensList = list;
+    },
+    setMessage(state, message) {
+      state.message = message;
     }
   },
   actions: {},
