@@ -1,14 +1,12 @@
 <template>
   <!-- This component handles how Genus, Species, and Specimans look in the white boxes -->
-  <v-card
-    min-width="325px"
-    class="mr-6 ml-6"
-    style="padding: 2px 15px"
-    max-height="85px"
-  >
+  <v-card width="100%" class="mr-6 ml-6" style="padding: 2px 15px">
     <v-card-title>
       <!-- Flex the button and title and justify: space-between so that they aren't next to each other -->
-      <v-row justify="space-between">
+      <v-row
+        class="flex-column align-center flex-lg-row align-lg-start"
+        justify="space-between"
+      >
         <!--  -->
         <span>
           {{ title }}
