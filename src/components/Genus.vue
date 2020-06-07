@@ -17,9 +17,9 @@
     <!-- forms end -->
 
     <!-- utilizing vuetify's grid system, this translate to display: flex; justify-content: space-betweeen -->
-    <v-row justify="space-between">
+    <v-row justify="center" justify-sm="space-between">
       <!-- We define a column for the Genus that'll take up 2 of the 12 grid spaces -->
-      <v-col cols="5" lg="4">
+      <v-col cols="12" sm="5" lg="4">
         <!-- See TitleCard.vue to see why this is consistently used -->
         <TitleCard
           :title="genus.scientific_name || 'My Genus'"
@@ -29,12 +29,12 @@
       </v-col>
       <!-- Genus Column End -->
       <!-- We then define the columns for species and their specimens within a v-for of the species -->
-      <v-col class="pt-0 pb-12" cols="7" lg="8">
+      <v-col class="pt-0 pb-12" cols="12" sm="12" lg="8">
         <!-- We want the Species and Specimens to be a flex box so that when new specimens are created, it will push down the content of each species,
              species column will take up as much vertical whitespace as the specimens
          -->
         <v-row v-for="spec in speciesList" :key="spec.scientific_name">
-          <v-col cols="7">
+          <v-col cols="12" sm="7">
             <!-- Species for loop -->
             <TitleCard
               button-title="Add Speciman"
@@ -44,7 +44,7 @@
             />
             <!-- Species for loop end -->
           </v-col>
-          <v-col cols="5">
+          <v-col cols="12" sm="5">
             <!-- Specimens for loop(nested in the species for loop), controlled by the specimensList local method of this component -->
             <TitleCard
               class="mb-5"

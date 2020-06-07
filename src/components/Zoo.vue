@@ -1,7 +1,7 @@
 <template>
   <!-- Wrap the entire page in a container to add some default padding/margin -->
   <v-container>
-    <AddGenus class="pl-6" />
+    <AddGenus class="pl-0 pl-sm-6 text-center text-sm-start" />
     <!-- here I don't wanna render another html element so I use template to conditionally render genus' if they exists -->
     <template v-if="genusList.length">
       <!-- Renders each individual Genus within a for loop, the data coming from the VueX store after being set from the API -->
