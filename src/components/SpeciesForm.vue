@@ -67,7 +67,6 @@ export default {
     addSpecies() {
       this.loading = true;
       this.error = null;
-
       this.$axios
         .post("/species", {
           scientific_name: this.scientific_name,

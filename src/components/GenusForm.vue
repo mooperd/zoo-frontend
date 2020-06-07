@@ -1,4 +1,5 @@
 <template>
+  <!-- if open is true show the dialog -->
   <v-dialog v-model="open" max-width="600px">
     <v-card>
       <div v-if="error" class="text-center">
@@ -9,9 +10,11 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <!-- submit.prevent prevents form from refreshing page like a normal form would so that we can make a ajax request through Vue -->
           <form @submit.prevent="addGenus()">
             <v-row>
               <v-col cols="12">
+                <!-- v-model will update the local state variable every time this input is changed -->
                 <v-text-field
                   v-model="name"
                   label="Scientific Name*"
@@ -22,6 +25,7 @@
           </form>
         </v-container>
       </v-card-text>
+      <!-- if loading is true trigger the loader, else show the options to create or close -->
       <Spinner v-if="loading" />
       <v-card-actions v-else>
         <v-spacer></v-spacer>
@@ -41,6 +45,7 @@ export default {
     }
   },
   computed: {
+    // the formOpen prop handles the value of this computed value
     open: {
       get() {
         return this.formOpen;
@@ -52,15 +57,20 @@ export default {
   },
   methods: {
     addGenus() {
+      // set error to false so it doesn't persist when adding a new Genus
       this.error = null;
+      // set loading to true to trigger the loader
       this.loading = true;
+      // our fetch request
       this.$axios
         .post("/genus", {
           scientific_name: this.name
         })
         // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
+          // set loading to false on successful api call to render the "save" and "cancel" buttons
           this.loading = false;
+          // update the genusList, we defined in the vuex store that if "item" is passed, then append to the end of the list
           this.$store.commit("setGenusList", {
             item: { id: data, scientific_name: this.name }
           });
@@ -70,10 +80,12 @@ export default {
             `${this.name} has been added as a Genus`
           );
           this.name = "";
+          // hide form, emit refers to the @toggleForm we passed from the parent, the second paramater is the paramater that gets sent back to the parent
           this.$emit("toggleForm", false);
         })
         .catch(err => {
           this.loading = false;
+          // set error to what ever the server responds with
           this.error = err.response.data;
         });
     }

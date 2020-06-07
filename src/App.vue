@@ -1,4 +1,5 @@
 <template>
+  <!-- initialize the vue app by using id #app and initialize vuetify app by wrapping the entire app in the v-app component -->
   <v-app id="app">
     <v-content>
       <!-- we render the snackbar here so that it doesn't get affected by any of the events happening in children components
@@ -40,6 +41,7 @@ export default {
      * instead, you set the value the computed property is pulling from, in this case, the VueX's store state
      * called "message", with the mutation I setup called "setMessage", it allows for the value to be set directly
      * by VueX
+     * See store/index.js
      * */
     message: {
       set(val) {

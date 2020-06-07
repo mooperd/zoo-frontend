@@ -27,6 +27,7 @@
                   offset-y
                   min-width="290px"
                 >
+                  <!-- this will open the calendar menu -->
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       v-model="birth_date"
